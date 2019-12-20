@@ -10,7 +10,8 @@ enablePlugins(ScalaJSPlugin)
 
 // This is an application with a main method
 scalaJSUseMainModuleInitializer := true
-
+//mainClass in (Compile, run) := Some("tutorial.webapp.TutorialP5jsApp")
+mainClass in Compile := Some("tutorial.webapp.TutorialP5jsApp")
 
 lazy val root = (project in file("."))
   .settings(
