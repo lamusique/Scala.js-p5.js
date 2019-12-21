@@ -1,24 +1,17 @@
 package p5.js
 
-object P5js {
-
-}
-
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSGlobal
 import scala.scalajs.js.|
 
 
-trait p5
 @js.native
-//object p5 extends js.GlobalScope {
-@JSGlobal
-object p5 extends js.Object {
+trait p5 extends js.Object {
 
-//@js.native
-//trait P5 extends js.Object {
+  import _root_.p5.js.modules._
+  type Color = _root_.p5.js.modules.Color
 
-  var HALF_PI: js.Any = js.native
+  var HALF_PI: Double = js.native
 
   var PI: js.Any = js.native
 
@@ -144,7 +137,7 @@ object p5 extends js.Object {
            ): p5 = js.native
 
   def ambientLight(
-                    v1: Double | js.Array[js.Any] | String | lib.Color,
+                    v1: Double | js.Array[js.Any] | String | modules.Color,
                     v2: Double = 1.0,
                     v3: Double = 1.0,
                     a: Double = 1.0
@@ -155,21 +148,21 @@ object p5 extends js.Object {
   def texture(): p5 = js.native
 
   def basicMaterial(
-                     v1: Double | js.Array[js.Any] | String | lib.Color,
+                     v1: Double | js.Array[js.Any] | String | modules.Color,
                      v2: Double = 1.0,
                      v3: Double = 1.0,
                      a: Double = 1.0
                    ): p5 = js.native
 
   def ambientMaterial(
-                       v1: Double | js.Array[js.Any] | String | lib.Color,
+                       v1: Double | js.Array[js.Any] | String | modules.Color,
                        v2: Double = 1.0,
                        v3: Double = 1.0,
                        a: Double = 1.0
                      ): p5 = js.native
 
   def specularMaterial(
-                        v1: Double | js.Array[js.Any] | String | lib.Color,
+                        v1: Double | js.Array[js.Any] | String | modules.Color,
                         v2: Double = 1.0,
                         v3: Double = 1.0,
                         a: Double = 1.0
@@ -186,7 +179,7 @@ object p5 extends js.Object {
              v2: Double = 1.0,
              v3: Double = 1.0,
              alpha: Double = 1.0
-           ): js.Array[js.Any] = js.native
+           ): this.Color = js.native
 
   def green(color: js.Any): Unit = js.native
 
@@ -199,7 +192,7 @@ object p5 extends js.Object {
   def saturation(color: js.Any): Unit = js.native
 
   def background(
-                  v1: Double | String | lib.Color | lib.Image,
+                  v1: Double | String | modules.Color | modules.Image,
                   v2: Double = 1.0,
                   v3: Double = 1.0,
                   a: Double = 1.0
@@ -208,7 +201,7 @@ object p5 extends js.Object {
   def clear(): Unit = js.native
 
   def fill(
-            v1: Double | js.Array[js.Any] | String | lib.Color,
+            v1: Double | js.Array[js.Any] | String | modules.Color,
             v2: Double = 1.0,
             v3: Double = 1.0,
             a: Double = 1.0
@@ -219,7 +212,7 @@ object p5 extends js.Object {
   def noStroke(): Unit = js.native
 
   def stroke(
-              v1: Double | js.Array[js.Any] | String | lib.Color,
+              v1: Double | js.Array[js.Any] | String | modules.Color,
               v2: Double = 1.0,
               v3: Double = 1.0,
               a: Double = 1.0
@@ -455,7 +448,7 @@ object p5 extends js.Object {
 
   def touchEnded(): Unit = js.native
 
-  def createImage(width: Double, height: Double): lib.Image = js.native
+  def createImage(width: Double, height: Double): modules.Image = js.native
 
   def saveFrames(
                   filename: String,
@@ -466,7 +459,7 @@ object p5 extends js.Object {
                 ): Unit = js.native
 
   def image(
-             img: lib.Image,
+             img: modules.Image,
              sx: Double = 0.0,
              sy: Double = 0.0,
              sWidth: Double = 1.0,
@@ -495,7 +488,7 @@ object p5 extends js.Object {
            y: Double = 0.0,
            w: Double = 1.0,
            h: Double = 1.0
-         ): js.Array[js.Any] | lib.Image = js.native
+         ): js.Array[js.Any] | modules.Image = js.native
 
   def loadPixels(): Unit = js.native
 
@@ -559,7 +552,7 @@ object p5 extends js.Object {
   def saveStrings(list: js.Array[js.Any], filename: String): Unit = js.native
 
   def saveTable(
-                 table: lib.Table,
+                 table: modules.Table,
                  filename: String,
                  options: String = ""
                ): Unit = js.native

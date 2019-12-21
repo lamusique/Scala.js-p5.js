@@ -1,4 +1,4 @@
-package p5.js.lib
+package p5.js.modules
 
 //object Modules {
 //
@@ -14,6 +14,10 @@ import scala.scalajs.js.|
 @js.native
 @JSGlobal("p5.Color")
 class Color extends js.Object {
+//@JSName("p5.Color")
+//trait Color extends js.Object {
+  @JSName("_getRed")
+  def getRed(): Short = js.native
 }
 
 @js.native
@@ -21,34 +25,34 @@ class Color extends js.Object {
 class Element protected () extends js.Object {
   def this(elt: String, pInst: js.Any = "") = this()
   var elt: js.Any = js.native
-  def parent(parent: String | js.Any): p5.js.lib.Element = js.native
-  def id(id: String): p5.js.lib.Element = js.native
-  def mousePressed(fxn: js.Function0[Any]): p5.js.lib.Element = js.native
-  def mouseWheel(fxn: js.Function0[Any]): p5.js.lib.Element = js.native
-  def mouseReleased(fxn: js.Function0[Any]): p5.js.lib.Element = js.native
-  def mouseClicked(fxn: js.Function0[Any]): p5.js.lib.Element = js.native
-  def mouseMoved(fxn: js.Function0[Any]): p5.js.lib.Element = js.native
-  def mouseOver(fxn: js.Function0[Any]): p5.js.lib.Element = js.native
-  def changed(fxn: js.Function0[Any]): p5.js.lib.Element = js.native
-  def input(fxn: js.Function0[Any]): p5.js.lib.Element = js.native
-  def mouseOut(fxn: js.Function0[Any]): p5.js.lib.Element = js.native
-  def touchStarted(fxn: js.Function0[Any]): p5.js.lib.Element = js.native
-  def touchMoved(fxn: js.Function0[Any]): p5.js.lib.Element = js.native
-  def touchEnded(fxn: js.Function0[Any]): p5.js.lib.Element = js.native
-  def dragOver(fxn: js.Function0[Any]): p5.js.lib.Element = js.native
-  def dragLeave(fxn: js.Function0[Any]): p5.js.lib.Element = js.native
-  def child(child: String | js.Any | p5.js.lib.Element = ???): p5.js.lib.Element = js.native
+  def parent(parent: String | js.Any): Element = js.native
+  def id(id: String): Element = js.native
+  def mousePressed(fxn: js.Function0[Any]): Element = js.native
+  def mouseWheel(fxn: js.Function0[Any]): Element = js.native
+  def mouseReleased(fxn: js.Function0[Any]): Element = js.native
+  def mouseClicked(fxn: js.Function0[Any]): Element = js.native
+  def mouseMoved(fxn: js.Function0[Any]): Element = js.native
+  def mouseOver(fxn: js.Function0[Any]): Element = js.native
+  def changed(fxn: js.Function0[Any]): Element = js.native
+  def input(fxn: js.Function0[Any]): Element = js.native
+  def mouseOut(fxn: js.Function0[Any]): Element = js.native
+  def touchStarted(fxn: js.Function0[Any]): Element = js.native
+  def touchMoved(fxn: js.Function0[Any]): Element = js.native
+  def touchEnded(fxn: js.Function0[Any]): Element = js.native
+  def dragOver(fxn: js.Function0[Any]): Element = js.native
+  def dragLeave(fxn: js.Function0[Any]): Element = js.native
+  def child(child: String | js.Any | Element = ???): Element = js.native
   def remove(): Unit = js.native
 }
 
 @js.native
 @JSGlobal("p5.Graphics")
-class Graphics extends p5.js.lib.Element {
+class Graphics extends Element {
 }
 
 @js.native
 @JSGlobal("p5.Renderer")
-class Renderer extends p5.js.lib.Element {
+class Renderer extends Element {
 }
 
 @js.native
@@ -60,7 +64,7 @@ class Image extends js.Object {
   def loadPixels(): Unit = js.native
   def set(x: Double, y: Double, a: Double | js.Array[js.Any] | js.Any): Unit = js.native
   def resize(width: Double, height: Double): Unit = js.native
-  def mask(srcImage: p5.js.lib.Image): Unit = js.native
+  def mask(srcImage: Image): Unit = js.native
   def save(filename: String, extension: String): Unit = js.native
 }
 
@@ -70,7 +74,7 @@ class Table protected () extends js.Object {
   def this(rows: js.Array[js.Any] = ???) = this()
   var columns: js.Any = js.native
   var rows: js.Any = js.native
-  def addRow(row: p5.js.lib.TableRow = new TableRow): Unit = js.native
+  def addRow(row: TableRow = new TableRow): Unit = js.native
   def removeRow(id: Double): Unit = js.native
   def getRows(): js.Array[js.Any] = js.native
   def findRows(value: String, column: Double | String): js.Array[js.Any] = js.native
@@ -112,33 +116,33 @@ class Vector protected () extends js.Object {
   var y: js.Any = js.native
   var z: js.Any = js.native
   // def toString(): String = js.native
-  def set(x: Double | p5.js.lib.Vector | js.Array[js.Any] = ???, y: Double = 0.0, z: Double = 0.0): Unit = js.native
-  def copy(): p5.js.lib.Vector = js.native
-  def add(x: Double | p5.js.lib.Vector | js.Array[js.Any], y: Double = 0.0, z: Double = 0.0): p5.js.lib.Vector = js.native
-  def sub(x: Double | p5.js.lib.Vector | js.Array[js.Any], y: Double = 0.0, z: Double = 0.0): p5.js.lib.Vector = js.native
-  def mult(n: Double): p5.js.lib.Vector = js.native
-  def div(n: Double): p5.js.lib.Vector = js.native
+  def set(x: Double | Vector | js.Array[js.Any] = ???, y: Double = 0.0, z: Double = 0.0): Unit = js.native
+  def copy(): Vector = js.native
+  def add(x: Double | Vector | js.Array[js.Any], y: Double = 0.0, z: Double = 0.0): Vector = js.native
+  def sub(x: Double | Vector | js.Array[js.Any], y: Double = 0.0, z: Double = 0.0): Vector = js.native
+  def mult(n: Double): Vector = js.native
+  def div(n: Double): Vector = js.native
   def mag(): Double = js.native
   def magSq(): Double = js.native
-  def dot(x: Double | p5.js.lib.Vector, y: Double = 0.0, z: Double = 0.0): Double = js.native
-  def cross(v: p5.js.lib.Vector): p5.js.lib.Vector = js.native
-  def dist(v: p5.js.lib.Vector): Double = js.native
-  def normalize(): p5.js.lib.Vector = js.native
-  def limit(max: Double): p5.js.lib.Vector = js.native
-  def setMag(len: Double): p5.js.lib.Vector = js.native
+  def dot(x: Double | Vector, y: Double = 0.0, z: Double = 0.0): Double = js.native
+  def cross(v: Vector): Vector = js.native
+  def dist(v: Vector): Double = js.native
+  def normalize(): Vector = js.native
+  def limit(max: Double): Vector = js.native
+  def setMag(len: Double): Vector = js.native
   def heading(): Double = js.native
-  def rotate(angle: Double): p5.js.lib.Vector = js.native
+  def rotate(angle: Double): Vector = js.native
   def array(): js.Array[js.Any] = js.native
-  def equals(x: Double | p5.js.lib.Vector | js.Array[js.Any] = ???, y: Double = 0.0, z: Double = 0.0): Boolean = js.native
+  def equals(x: Double | Vector | js.Array[js.Any] = ???, y: Double = 0.0, z: Double = 0.0): Boolean = js.native
 }
 
 @js.native
 @JSGlobal("p5.Vector")
 object Vector extends js.Object {
-  def fromAngle(angle: Double): p5.js.lib.Vector = js.native
-  def random2D(): p5.js.lib.Vector = js.native
-  def random3D(): p5.js.lib.Vector = js.native
-  def angleBetween(v1: p5.js.lib.Vector, v2: p5.js.lib.Vector): Double = js.native
+  def fromAngle(angle: Double): Vector = js.native
+  def random2D(): Vector = js.native
+  def random3D(): Vector = js.native
+  def angleBetween(v1: Vector, v2: Vector): Double = js.native
 }
 
 @js.native
@@ -154,7 +158,7 @@ class Font protected () extends js.Object {
 class MediaElement protected () extends js.Object {
   def this(elt: String, pInst: js.Any = "") = this()
   var src: js.Any = js.native
-  def volume(`val`: Double = 1.0): Double | p5.js.lib.MediaElement = js.native
+  def volume(`val`: Double = 1.0): Double | MediaElement = js.native
   def duration(): Double = js.native
   def disconnect(): Unit = js.native
   def showControls(): Unit = js.native
@@ -259,9 +263,9 @@ class Oscillator protected () extends js.Object {
   def disconnect(): Unit = js.native
   def pan(panning: Double, timeFromNow: Double): Unit = js.native
   def phase(phase: Double): Unit = js.native
-  def add(number: Double): p5.js.lib.Oscillator = js.native
-  def mult(number: Double): p5.js.lib.Oscillator = js.native
-  def scale(inMin: Double, inMax: Double, outMin: Double, outMax: Double): p5.js.lib.Oscillator = js.native
+  def add(number: Double): Oscillator = js.native
+  def mult(number: Double): Oscillator = js.native
+  def scale(inMin: Double, inMax: Double, outMin: Double, outMax: Double): Oscillator = js.native
 }
 
 @js.native
@@ -282,9 +286,9 @@ class Env extends js.Object {
   def triggerAttack(unit: js.Any, secondsFromNow: Double): Unit = js.native
   def triggerRelease(unit: js.Any, secondsFromNow: Double): Unit = js.native
   def ramp(unit: js.Any, secondsFromNow: Double, v: Double, v2: Double = 1.0): Unit = js.native
-  def add(number: Double): p5.js.lib.Env = js.native
-  def mult(number: Double): p5.js.lib.Env = js.native
-  def scale(inMin: Double, inMax: Double, outMin: Double, outMax: Double): p5.js.lib.Env = js.native
+  def add(number: Double): Env = js.native
+  def mult(number: Double): Env = js.native
+  def scale(inMin: Double, inMax: Double, outMin: Double, outMax: Double): Env = js.native
 }
 
 @js.native
@@ -363,7 +367,7 @@ class Reverb extends js.Object {
 class Convolver protected () extends js.Object {
   def this(path: String, callback: js.Function0[Any] = () => (), errorCallback: js.Function0[Any] = () => ()) = this()
   var convolverNode: js.Any = js.native
-  def createConvolver(path: String, callback: js.Function0[Any] = () => (), errorCallback: js.Function0[Any] = () => ()): p5.js.lib.Convolver = js.native
+  def createConvolver(path: String, callback: js.Function0[Any] = () => (), errorCallback: js.Function0[Any] = () => ()): Convolver = js.native
   def process(src: js.Any): Unit = js.native
   var impulses: js.Any = js.native
   def addImpulse(path: String, callback: js.Function0[Any], errorCallback: js.Function0[Any]): Unit = js.native
@@ -389,7 +393,7 @@ class Part protected () extends js.Object {
   def noLoop(): Unit = js.native
   def stop(time: Double = 1.0): Unit = js.native
   def pause(time: Double): Unit = js.native
-  def addPhrase(phrase: p5.js.lib.Phrase): Unit = js.native
+  def addPhrase(phrase: Phrase): Unit = js.native
   def removePhrase(phraseName: String): Unit = js.native
   def getPhrase(phraseName: String): Unit = js.native
   def replaceSequence(phraseName: String, sequence: js.Array[js.Any]): Unit = js.native
@@ -410,16 +414,16 @@ class Score extends js.Object {
 @JSGlobal("p5.SoundRecorder")
 class SoundRecorder extends js.Object {
   def setInput(unit: js.Any = ""): Unit = js.native
-  def record(soundFile: p5.js.lib.SoundFile, duration: Double = 1.0, callback: js.Function0[Any] = () => ()): Unit = js.native
+  def record(soundFile: SoundFile, duration: Double = 1.0, callback: js.Function0[Any] = () => ()): Unit = js.native
   def stop(): Unit = js.native
-  def saveSound(soundFile: p5.js.lib.SoundFile, name: String): Unit = js.native
+  def saveSound(soundFile: SoundFile, name: String): Unit = js.native
 }
 
 @js.native
 @JSGlobal("p5.PeakDetect")
 class PeakDetect protected () extends js.Object {
   def this(freq1: Double = 1.0, freq2: Double = 1.0, threshold: Double = 1.0, framesPerPeak: Double = 1.0) = this()
-  def update(fftObject: p5.js.lib.FFT): Unit = js.native
+  def update(fftObject: FFT): Unit = js.native
   def onPeak(callback: js.Function0[Any], `val`: js.Any = ""): Unit = js.native
 }
 

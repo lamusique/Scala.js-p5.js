@@ -9,13 +9,15 @@ ThisBuild / organizationName := "p5.js"
 enablePlugins(ScalaJSPlugin)
 
 // This is an application with a main method
-scalaJSUseMainModuleInitializer := true
-//mainClass in (Compile, run) := Some("tutorial.webapp.TutorialP5jsApp")
-mainClass in Compile := Some("tutorial.webapp.TutorialP5jsApp")
+//scalaJSUseMainModuleInitializer := true
+//mainClass in (Compile, run) := Some("samples.TutorialP5jsApp")
+//mainClass in Compile := Some("samples.TutorialP5jsApp")
 
 lazy val root = (project in file("."))
   .settings(
     name := "scala-js-p5js",
+//    libraryDependencies += scalajsDom,
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.8",
     libraryDependencies += scalaTest % Test
   )
 
