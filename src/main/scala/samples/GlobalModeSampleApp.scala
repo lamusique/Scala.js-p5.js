@@ -1,20 +1,19 @@
 package samples
 
-import p5.js.modules._
-import p5.js.p5
-
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSExportTopLevel, _}
-import scala.scalajs.js.|
+
+// This import decides which mode.
+import p5.js.modes.global.p5
 
 @JSExportTopLevel("GlobalModeSampleApp")
 @JSExportAll
 object GlobalModeSampleApp {
-  
+
   def main(args: js.Array[String]): Unit = {
     println("Hello world p5.js!")
 
-    val p5InGlobalScope = _root_.p5.js.modes.global.p5()
+    val p5InGlobalScope = p5()
 
     val setupFn = () => {
       import p5InGlobalScope._
@@ -40,6 +39,8 @@ object GlobalModeSampleApp {
 
     p5InGlobalScope.setup = setupFn
     p5InGlobalScope.draw = drawFn
+
+
 
     // Here this doesn't work owing to out of scope.
     // val c = window.color(250, 100, 90)

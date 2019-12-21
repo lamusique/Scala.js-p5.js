@@ -1,15 +1,22 @@
 package p5.js
 
+import org.scalajs.dom.raw.HTMLElement
+
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSGlobal
 import scala.scalajs.js.|
 
 
 @js.native
-trait p5 extends js.Object {
+trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound {
 
   import _root_.p5.js.modules._
   type Color = _root_.p5.js.modules.Color
+  type Element = _root_.p5.js.modules.Element
+
+//  type Sound = _root_.p5.js.modules.Sound
+  type Oscillator = p5.js.modules.Oscillator
+
 
   var HALF_PI: Double = js.native
 
@@ -29,17 +36,17 @@ trait p5 extends js.Object {
 
   var focused: js.Any = js.native
 
-  var displayWidth: js.Any = js.native
+  var displayWidth: Double = js.native
 
-  var displayHeight: js.Any = js.native
+  var displayHeight: Double = js.native
 
-  var windowWidth: js.Any = js.native
+  var windowWidth: Double = js.native
 
-  var windowHeight: js.Any = js.native
+  var windowHeight: Double = js.native
 
-  var width: js.Any = js.native
+  var width: Double = js.native
 
-  var height: js.Any = js.native
+  var height: Double = js.native
 
   var deviceOrientation: js.Any = js.native
 
@@ -77,17 +84,17 @@ trait p5 extends js.Object {
 
   var mouseY: Double = js.native
 
-  var pmouseX: js.Any = js.native
+  var pmouseX: Double = js.native
 
-  var pmouseY: js.Any = js.native
+  var pmouseY: Double = js.native
 
-  var winMouseX: js.Any = js.native
+  var winMouseX: Double = js.native
 
-  var winMouseY: js.Any = js.native
+  var winMouseY: Double = js.native
 
-  var pwinMouseX: js.Any = js.native
+  var pwinMouseX: Double = js.native
 
-  var pwinMouseY: js.Any = js.native
+  var pwinMouseY: Double = js.native
 
   var mouseButton: js.Any = js.native
 
@@ -448,7 +455,22 @@ trait p5 extends js.Object {
 
   def touchEnded(): Unit = js.native
 
+  // These functions are generative so missing in p5.js source.
+  def createDiv(html: js.UndefOr[String] = js.undefined): modules.Element = js.native
+  def createP(html: js.UndefOr[String] = js.undefined): modules.Element = js.native
+  def createSpan(html: js.UndefOr[String] = js.undefined): modules.Element = js.native
+
   def createImage(width: Double, height: Double): modules.Image = js.native
+
+  def createA(href: String, html: String, target: js.UndefOr[String] = js.undefined): modules.Element = js.native
+
+  def createSlider(min: Double, max: Double, value: js.UndefOr[Double] = js.undefined, step: js.UndefOr[Double] = js.undefined): modules.Element = js.native
+  def createButton(label: String, value: js.UndefOr[String] = js.undefined): modules.Element = js.native
+  def createCheckbox(label: js.UndefOr[String] = js.undefined, value: js.UndefOr[String] = js.undefined): modules.Element = js.native
+  def createSelect(multiple: js.UndefOr[Boolean]): modules.Element = js.native
+  // TODO can be a typed element
+  def createSelect(existing: js.Object): modules.Element = js.native
+
 
   def saveFrames(
                   filename: String,
@@ -733,9 +755,29 @@ trait p5 extends js.Object {
 
   def year(): Double = js.native
 
-  def selectAll(name: String, container: String = ""): js.Array[js.Any] = js.native
 
+  // https://github.com/processing/p5.js/blob/master/src/dom/dom.js
+
+  def select(name: String, container: String | Element | HTMLElement): js.Array[js.Any] = js.native
+  def selectAll(name: String, container: js.UndefOr[String] = js.undefined): js.Array[js.Any] = js.native
   def removeElements(): Unit = js.native
+  // https://p5js.org/reference/#/p5/changed
+  def changed(fxn: js.ThisFunction): Unit = js.native
+  def changed(active: Boolean): Unit = js.native
+  // https://p5js.org/reference/#/p5/input
+  def input(fxn: js.ThisFunction): Unit = js.native
+  def input(active: Boolean): Unit = js.native
+  def createRadio(divId: js.UndefOr[String] = js.undefined): Element = js.native
+  // https://p5js.org/reference/#/p5/createColorPicker
+  def createColorPicker(): Element = js.native
+  def createColorPicker(value: String | Color): Element = js.native
+
+  def createInput(value: js.UndefOr[String] = js.undefined, `type`: js.UndefOr[String] = js.undefined): Element = js.native
+  def createFileInput(callback: js.UndefOr[js.Function1[File, Unit]] = js.undefined, multiple: js.UndefOr[String] = js.undefined): Element = js.native
+  // https://p5js.org/reference/#/p5/createVideo
+  def createVideo(src: String | js.Array[String], callback: js.UndefOr[js.ThisFunction]): MediaElement = js.native
+  def createAudio(src: js.UndefOr[String | js.Array[String]] = js.undefined, callback: js.UndefOr[js.ThisFunction]): MediaElement = js.native
+
 
   def getAudioContext(): js.Dynamic = js.native
 
@@ -750,4 +792,10 @@ trait p5 extends js.Object {
   def sampleRate(): Double = js.native
 
   def midiToFreq(midiNote: Double): Double = js.native
+
+
+  // p5.Sound
+
+
+
 }

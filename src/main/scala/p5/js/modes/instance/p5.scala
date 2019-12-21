@@ -15,6 +15,9 @@ trait Sketch extends _root_.p5.js.p5 {
 class p5 extends _root_.p5.js.p5 {
 }
 object p5 {
+
+//  type Oscillator = this.Oscillator
+
   def apply(sketchFn: js.Function1[_root_.p5.js.modes.instance.p5, Unit]): p5 = {
 //    val chart = js.Dynamic.newInstance(_root_.p5.js.modes.instance.p5)("#funnel")
 

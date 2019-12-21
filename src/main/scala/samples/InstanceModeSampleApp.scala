@@ -1,11 +1,10 @@
 package samples
 
-import p5.js.modules._
-import p5.js.p5
-
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSExportTopLevel, _}
-import scala.scalajs.js.|
+
+// This import decides which mode.
+import p5.js.modes.instance.p5
 
 @JSExportTopLevel("InstanceModeSampleApp")
 @JSExportAll
@@ -14,8 +13,9 @@ object InstanceModeSampleApp {
   def main(args: js.Array[String]): Unit = {
     println("Hello world p5.js!")
 
+    // https://github.com/processing/p5.js/wiki/Global-and-instance-mode
 
-    val sketchFn: js.Function1[_root_.p5.js.modes.instance.p5, Unit] = (sketch: _root_.p5.js.modes.instance.p5) => {
+    val sketchFn: js.Function1[p5, Unit] = (sketch: p5) => {
 
       import sketch._
       setup = () => {
@@ -39,10 +39,8 @@ object InstanceModeSampleApp {
 
     }
 
-
-    val p5Instance = _root_.p5.js.modes.instance.p5.apply(sketchFn)
-
-
+    // instantiate
+    val myp5 = p5(sketchFn)
 
 
     println("the main ends.")

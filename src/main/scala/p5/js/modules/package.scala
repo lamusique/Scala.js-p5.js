@@ -20,6 +20,7 @@ class Color extends js.Object {
   def getRed(): Short = js.native
 }
 
+// https://github.com/processing/p5.js/blob/master/src/dom/dom.js
 @js.native
 @JSGlobal("p5.Element")
 class Element protected () extends js.Object {
@@ -42,6 +43,9 @@ class Element protected () extends js.Object {
   def dragOver(fxn: js.Function0[Any]): Element = js.native
   def dragLeave(fxn: js.Function0[Any]): Element = js.native
   def child(child: String | js.Any | Element = ???): Element = js.native
+  // https://p5js.org/reference/#/p5.Element/position
+  // https://www.scala-js.org/doc/interoperability/types.html
+  def position(x: js.UndefOr[Double] = js.undefined, y: js.UndefOr[Double] = js.undefined): js.Dynamic = js.native
   def remove(): Unit = js.native
 }
 
@@ -226,6 +230,19 @@ class SoundFile extends js.Object {
   def clearCues(): Unit = js.native
 }
 
+
+// https://github.com/processing/p5.js/blob/master/src/core/shape/vertex.js
+@js.native
+trait Shape extends js.Object {
+  //POINTS, LINES, TRIANGLES, TRIANGLE_FAN TRIANGLE_STRIP, QUADS, or QUAD_STRIP
+  def beginShape(kind: js.UndefOr[String] = js.undefined): Unit = js.native
+  // CLOSE
+  def endShape(mode: js.UndefOr[String] = js.undefined): Unit = js.native
+
+}
+
+
+
 @js.native
 @JSGlobal("p5.Amplitude")
 class Amplitude protected () extends js.Object {
@@ -235,37 +252,11 @@ class Amplitude protected () extends js.Object {
   def smooth(set: Double): Unit = js.native
 }
 
-@js.native
-@JSGlobal("p5.FFT")
-class FFT protected () extends js.Object {
-  def this(smoothing: Double = 1.0, bins: Double = 1.0) = this()
-  def setInput(source: js.Any = ""): Unit = js.native
-  def waveform(bins: Double = 1.0, precision: String = ""): js.Array[js.Any] = js.native
-  def analyze(bins: Double = 1.0, scale: Double = 1.0): js.Array[js.Any] = js.native
-  def getEnergy(frequency1: Double | String, frequency2: Double = 1.0): Double = js.native
-  def getCentroid(): Double = js.native
-  def smooth(smoothing: Double): Unit = js.native
-}
+
 
 @js.native
 @JSGlobal("p5.Signal")
 class Signal extends js.Object {
-}
-
-@js.native
-@JSGlobal("p5.Oscillator")
-class Oscillator protected () extends js.Object {
-  def this(freq: Double = 1.0, `type`: String = "") = this()
-  def start(time: Double = 1.0, frequency: Double = 0.0): Unit = js.native
-  def stop(secondsFromNow: Double): Unit = js.native
-  def setType(`type`: String): Unit = js.native
-  def connect(unit: js.Any): Unit = js.native
-  def disconnect(): Unit = js.native
-  def pan(panning: Double, timeFromNow: Double): Unit = js.native
-  def phase(phase: Double): Unit = js.native
-  def add(number: Double): Oscillator = js.native
-  def mult(number: Double): Oscillator = js.native
-  def scale(inMin: Double, inMax: Double, outMin: Double, outMax: Double): Oscillator = js.native
 }
 
 @js.native
