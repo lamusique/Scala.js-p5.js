@@ -20,9 +20,10 @@ object P5SoundSampleApp {
 
     val sketchFn: js.Function1[p5, Unit] = (sketch: p5) => {
 
-      var modulator: Oscillator = null
-      var fft: FFT = null
-      var waveform: js.Array[Double] = null
+      val carrier = Oscillator("sine")
+      val modulator = Oscillator("sawtooth")
+      val fft = FFT()
+
 
       import sketch._
       setup = () => {
@@ -47,20 +48,16 @@ object P5SoundSampleApp {
           onFulfilled)
 
 
-        val carrier = Oscillator("sine")
         carrier.amp(1)
         carrier.freq(220)
         carrier.start()
 
-        modulator = Oscillator("sawtooth")
         modulator.disconnect()
         modulator.amp(1)
         modulator.freq(4)
         modulator.start()
 
         carrier.freq(modulator.mult(200).add(100))
-
-        fft = FFT()
 
         // switches
         document.getElementById("start").addEventListener("click", (e: dom.Event) => {
@@ -72,6 +69,7 @@ object P5SoundSampleApp {
 
         ()
       }
+
 
       draw = () => {
 
@@ -87,7 +85,7 @@ object P5SoundSampleApp {
         modulator.amp(modAmp)
 
         // analyze the waveform
-        waveform = fft.waveform()
+        val waveform = fft.waveform()
 
         // draw the shape of the waveform
         stroke(255)
