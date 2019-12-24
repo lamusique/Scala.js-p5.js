@@ -1,7 +1,7 @@
 import Dependencies._
 
 ThisBuild / scalaVersion     := "2.13.1"
-ThisBuild / version          := "0.1.0"
+ThisBuild / version          := "0.0.1"
 ThisBuild / organization     := "org.p5js"
 ThisBuild / organizationName := "p5.js"
 
