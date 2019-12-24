@@ -8,7 +8,7 @@ import scala.scalajs.js.|
 
 @js.native
 trait Sound extends js.Object {
-  def userStartAudio(elements: js.UndefOr[Element | js.Array[Element]] = js.undefined, callback: js.UndefOr[js.ThisFunction] = js.undefined): js.Promise[_] = js.native
+  def userStartAudio(elements: js.UndefOr[Element | js.Array[Element]] = js.undefined, callback: js.UndefOr[js.ThisFunction] = js.undefined): js.Promise[Unit] = js.native
 
 }
 //@js.native

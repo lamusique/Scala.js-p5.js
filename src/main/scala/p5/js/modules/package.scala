@@ -46,6 +46,7 @@ class Element protected () extends js.Object {
   // https://p5js.org/reference/#/p5.Element/position
   // https://www.scala-js.org/doc/interoperability/types.html
   def position(x: js.UndefOr[Double] = js.undefined, y: js.UndefOr[Double] = js.undefined): js.Dynamic = js.native
+  def style(property: String, value: js.UndefOr[String | Double | Color] = js.undefined): String = js.native
   def remove(): Unit = js.native
 }
 

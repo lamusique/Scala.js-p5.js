@@ -19,22 +19,18 @@ object p5 {
 //  type Oscillator = this.Oscillator
 
   def apply(sketchFn: js.Function1[_root_.p5.js.modes.instance.p5, Unit]): p5 = {
-//    val chart = js.Dynamic.newInstance(_root_.p5.js.modes.instance.p5)("#funnel")
-
     def instantiate[C <: js.Any : js.ConstructorTag]: C =
       js.Dynamic.newInstance(js.constructorTag[C].constructor)(sketchFn).asInstanceOf[C]
     val instantiatedP5 = instantiate[_root_.p5.js.modes.instance.p5]
     instantiatedP5
   }
   def apply(sketchFn: js.Function1[_root_.p5.js.modes.instance.p5, Unit], id: String): p5 = {
-//    js.Dynamic.global.window.asInstanceOf[p5]
     def instantiate[C <: js.Any : js.ConstructorTag]: C =
       js.Dynamic.newInstance(js.constructorTag[C].constructor)(sketchFn, id).asInstanceOf[C]
     val instantiatedP5 = instantiate[_root_.p5.js.modes.instance.p5]
     instantiatedP5
   }
   def apply(sketchFn: js.Function1[_root_.p5.js.modes.instance.p5, Unit], elm: Element): p5 = {
-//    js.Dynamic.global.window.asInstanceOf[p5]
     def instantiate[C <: js.Any : js.ConstructorTag]: C =
       js.Dynamic.newInstance(js.constructorTag[C].constructor)(sketchFn, elm).asInstanceOf[C]
     val instantiatedP5 = instantiate[_root_.p5.js.modes.instance.p5]

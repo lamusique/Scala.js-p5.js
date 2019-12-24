@@ -3,6 +3,7 @@ package samples
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSExportTopLevel, _}
 import org.scalajs.dom
+import org.scalajs.dom.document
 import p5.js.modules.{FFT, Oscillator}
 
 // This import decides which mode.
@@ -12,6 +13,7 @@ import p5.js.modes.instance.p5
 @JSExportAll
 object P5SoundSampleApp {
 
+  // https://processing.github.io/p5.js-sound/examples/oscillatorMod_FM/
   def main(args: js.Array[String]): Unit = {
     println("Hello world p5.js!")
 
@@ -27,18 +29,23 @@ object P5SoundSampleApp {
         createCanvas(800,400)
         noFill()
 
-        val myDiv = createDiv("click to start audio")
-        myDiv.position(100, 200)
+
         // Start the audio context on a click/touch event
 
-//        userStartAudio().`then`((a) => {})
+        val myDiv = createDiv("click to start audio")
+        myDiv.style("color: white")
+        myDiv.position(100, 100)
 
-//        userStartAudio().`then`[Unit](() => {
-//          myDiv.remove()
-//          ()
-//        })
+        // implicit conversion
+        // https://www.scala-js.org/doc/interoperability/types.html
+        val onFulfilled: js.Function1[Unit, Unit] = Unit => {
+          myDiv.remove()
+          ()
+        }
 
-        userStartAudio(myDiv)
+        userStartAudio().`then`[Unit](
+          onFulfilled)
+
 
         val carrier = Oscillator("sine")
         carrier.amp(1)
@@ -54,6 +61,14 @@ object P5SoundSampleApp {
         carrier.freq(modulator.mult(200).add(100))
 
         fft = FFT()
+
+        // switches
+        document.getElementById("start").addEventListener("click", (e: dom.Event) => {
+          carrier.start()
+        })
+        document.getElementById("stop").addEventListener("click", (e: dom.Event) => {
+          carrier.stop(0)
+        })
 
         ()
       }
@@ -78,7 +93,7 @@ object P5SoundSampleApp {
         stroke(255)
         strokeWeight(10)
         beginShape()
-//        for (var i = 0; i < waveform.length; i++){
+
         for (i <- 0 until waveform.length) {
           val x = map(i, 0, waveform.length, 0, width)
           val y = map(waveform(i), -1, 1, -height/2, height/2)
