@@ -76,9 +76,9 @@ trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound {
 
   var keyIsPressed: js.Any = js.native
 
-  var key: js.Any = js.native
+  var key: String = js.native
 
-  var keyCode: js.Any = js.native
+  var keyCode: Int = js.native
 
   var mouseX: Double = js.native
 
@@ -429,11 +429,11 @@ trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound {
 
   def deviceShaken(): Unit = js.native
 
-  def keyPressed(): Unit = js.native
+  var keyPressed: js.Function0[Unit] = js.native
 
-  def keyReleased(): Unit = js.native
+  def keyReleased: js.Function0[Unit] = js.native
 
-  def keyTyped(): Unit = js.native
+  def keyTyped: js.Function0[Unit] = js.native
 
   def keyIsDown(code: Double): Boolean = js.native
 
