@@ -25,15 +25,41 @@ object GamingSampleApp {
 //
 //      val myCar = ControllableCar(sketch)
 
-    val sketchFn: js.Function1[MyP5, Unit] = (sketch: MyP5) => {
+
+    implicit class SpecificInstance(sketch: p5) {
+//      def setup(): Unit = sketch.asInstanceOf[MyP5].setup()
+//      def draw(): Unit = sketch.asInstanceOf[MyP5].draw()
       import sketch._
+//      def setup(): Unit = {
+//        createCanvas(400, 500)
+//        noFill()
+//
+//        println("setup works.")
+//
+//        ()
+//      }
+      def specific: MyP5 = sketch.asInstanceOf[MyP5]
+    }
+
+    val sketchFn: js.Function1[p5, Unit] = (sketch: p5) => {
+      import sketch._
+
+//      val s = sketch.asInstanceOf[MyP5]
+      val s = sketch.specific
+      println(s)
+      s.test()
+//      sketch.setupa()
+//      sketch.draw()
+
+
       ()
     }
 
     // instantiate
 //    val myp5: MyP5 = p5(sketchFn)
 //    val myp5 = js.Dynamic.newInstance(root_.p5.js.modes.instance.p5)(sketchFn).asInstanceOf[MyP5]
-    val myp5 = new MyP5(sketchFn)
+//    val myp5 = new MyP5(sketchFn)
+    val myp5 = p5(sketchFn)
 
 
     println("the main ends.")
@@ -87,12 +113,15 @@ object GamingSampleApp {
 
 @js.native
 //@JSImport("p5", JSImport.Default)
-@JSGlobal("p5")
-class MyP5(sketchFn: js.Function1[MyP5, Unit]) extends p5 {
+//@JSGlobal("p5")
+//class MyP5(sketchFn: js.Function1[MyP5, Unit]) extends p5 {
+trait MyP5 extends p5 {
   //    => sketch: this
 
   //    val myCar: ControllableCar
   val myCar = ControllableCar(this)
+
+  def test() = println("test")
 
   override def setup(): Unit = {
     createCanvas(400, 500)
