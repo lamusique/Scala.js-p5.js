@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.{AtomicInteger, AtomicReference}
 
 import org.scalajs.dom
 import org.scalajs.dom.document
+import p5.js.modes.instance.Prerequisite
 import p5.js.modes.{MonkeyPatchableP5, PerformableP5}
 import p5.js.modules.{Color, FFT, Oscillator}
 
@@ -15,53 +16,16 @@ import p5.js.modes.instance.p5
 
 @JSExportTopLevel("GamingSampleApp")
 @JSExportAll
-object GamingSampleApp {
+object GamingSampleApp extends Prerequisite {
 
-  def main(args: js.Array[String]): Unit = {
-    println("the main starts.")
+  override def instance(sketch: MonkeyPatchableP5): PerformableP5 = MyP5(sketch)
 
+  def main(args: js.Array[String]): Unit = super.main(args.toArray)
 
-    val sketchFn: js.Function1[_ <: _root_.p5.js.p5, Unit] = (sketch: MonkeyPatchableP5) => {
-
-      val ins = new MyP5(sketch)
-
-      import sketch._
-      //      setup =
-      //      val myCar = ControllableCar(sketch)
-      //        p5.setup =
-      sketch.setup = ins.setupFn
-      sketch.draw = ins.drawFn
-      sketch.keyPressed = ins.keyPressedFn
-
-    }
-
-      // instantiate
-      //    val myp5: MyP5 = p5(sketchFn)
-      //    val myp5 = js.Dynamic.newInstance(root_.p5.js.modes.instance.p5)(sketchFn).asInstanceOf[MyP5]
-      //    val myp5 = new MyP5(sketchFn)
-      val myp5 = p5(sketchFn)
-
-      println("the main ends.")
-    }
-
-
-
-
-
-//    @js.native
-    //@JSImport("p5", JSImport.Default)
-    //@JSGlobal("p5")
-    //class MyP5(sketchFn: js.Function1[MyP5, Unit]) extends p5 {
-//    implicit class MyP5(sketch: p5) extends p5 {
-    case class MyP5(sketch: _root_.p5.js.p5) extends PerformableP5 {
-      //    => sketch: this
+  case class MyP5(sketch: _root_.p5.js.p5) extends PerformableP5 {
       import sketch._
 
-      //    val myCar: ControllableCar
       val myCar = ControllableCar(sketch)
-
-      def test() = println("test")
-
 
       override def setup(): Unit = {
         createCanvas(400, 500)
@@ -175,6 +139,5 @@ object GamingSampleApp {
         rect(p.x, p.y, width, height)
       }
     }
-
 
 }
