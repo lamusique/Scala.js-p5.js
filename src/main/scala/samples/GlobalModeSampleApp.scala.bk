@@ -37,8 +37,8 @@ object GlobalModeSampleApp {
     }
 
 
-    p5InGlobalScope.setup = setupFn
-    p5InGlobalScope.draw = drawFn
+//    p5InGlobalScope.setup = setupFn
+//    p5InGlobalScope.draw = drawFn
 
 
 

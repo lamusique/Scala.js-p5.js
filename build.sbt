@@ -18,6 +18,7 @@ lazy val root = (project in file("."))
     name := "scala-js-p5js",
 //    libraryDependencies += scalajsDom,
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.8",
+    libraryDependencies += "eu.timepit" %%% "refined-cats" % "0.9.10",
     libraryDependencies += scalaTest % Test
   )
 

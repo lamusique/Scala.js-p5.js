@@ -36,4 +36,13 @@ object p5 {
     val instantiatedP5 = instantiate[_root_.p5.js.modes.instance.p5]
     instantiatedP5
   }
+
+//  def apply[T <: p5](sketchFn: js.Function1[T, Unit]): T = {
+//    def instantiate[C <: js.Any : js.ConstructorTag]: C =
+//      js.Dynamic.newInstance(js.constructorTag[C].constructor)(sketchFn).asInstanceOf[C]
+//    val instantiatedP5 = instantiate[ClassTag[T]]
+//    instantiatedP5
+//  }
+
+
 }

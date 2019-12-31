@@ -9,8 +9,8 @@ object p5 {
   def apply(): p5 = js.Dynamic.global.window.asInstanceOf[p5]
   def apply(setup: js.Function0[Unit], draw: js.Function0[Unit]): p5 = {
     val globalScope = js.Dynamic.global.window.asInstanceOf[p5]
-    globalScope.setup = setup
-    globalScope.draw = draw
+//    globalScope.setup = setup
+//    globalScope.draw = draw
     globalScope
   }
 }

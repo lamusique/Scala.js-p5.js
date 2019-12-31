@@ -1,16 +1,14 @@
 package p5.js.modules
 
-//object Modules {
-//
-//}
 
-//package p5.js.lib
+import p5.js.modes.instance.p5
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobal, JSGlobalScope, JSName}
 import scala.scalajs.js.|
 
 
+// p5.js/src/color/p5.Color.js
 @js.native
 @JSGlobal("p5.Color")
 class Color extends js.Object {
@@ -18,6 +16,19 @@ class Color extends js.Object {
 //trait Color extends js.Object {
   @JSName("_getRed")
   def getRed(): Short = js.native
+}
+object Color {
+//  p5.js/src/color/creating_reading.js
+//  l.320
+//  p5.prototype.color = function() {
+
+  // p5.Color = function(pInst, vals) {
+//  def apply(pInst: p5, vals: ): p5 = {
+//    def instantiate[C <: js.Any : js.ConstructorTag]: C =
+//      js.Dynamic.newInstance(js.constructorTag[C].constructor)(sketchFn, elm).asInstanceOf[C]
+//    val instantiatedP5 = instantiate[_root_.p5.js.modes.instance.p5]
+//    instantiatedP5
+//  }
 }
 
 // https://github.com/processing/p5.js/blob/master/src/dom/dom.js

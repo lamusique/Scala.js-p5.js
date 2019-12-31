@@ -8,7 +8,7 @@ import scala.scalajs.js.|
 
 
 @js.native
-trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound {
+trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound with p5.js.modules.core.Constants with p5.js.modules.core.Environment {
 
   import _root_.p5.js.modules._
   type Color = _root_.p5.js.modules.Color
@@ -18,35 +18,13 @@ trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound {
   type Oscillator = p5.js.modules.Oscillator
 
 
-  var HALF_PI: Double = js.native
 
-  var PI: js.Any = js.native
+def setup(): Unit = js.native
+//  var setup: js.Function0[Unit] = js.native
 
-  var QUARTER_PI: js.Any = js.native
+def draw(): Unit = js.native
+//  var draw: js.Function0[Unit] = js.native
 
-  var TAU: js.Any = js.native
-
-  var TWO_PI: js.Any = js.native
-
-  var setup: js.Function0[Unit] = js.native
-
-  var draw: js.Function0[Unit] = js.native
-
-  var frameCount: js.Any = js.native
-
-  var focused: js.Any = js.native
-
-  var displayWidth: Double = js.native
-
-  var displayHeight: Double = js.native
-
-  var windowWidth: Double = js.native
-
-  var windowHeight: Double = js.native
-
-  var width: Double = js.native
-
-  var height: Double = js.native
 
   var deviceOrientation: js.Any = js.native
 
@@ -338,25 +316,8 @@ trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound {
                     t: Double
                   ): Double = js.native
 
-  def print(contents: js.Any): Unit = js.native
 
-  def frameRate(fps: Double = 1.0): Double = js.native
 
-  def noCursor(): Unit = js.native
-
-  def windowResized(): Unit = js.native
-
-  def fullscreen(`val`: Boolean = false): Boolean = js.native
-
-  def pixelDensity(`val`: Double = 1.0): Double = js.native
-
-  def displayDensity(): Double = js.native
-
-  def getURL(): String = js.native
-
-  def getURLPath(): js.Array[js.Any] = js.native
-
-  def getURLParams(): js.Dynamic = js.native
 
   def createCanvas(w: Double, h: Double, renderer: String = ""): js.Dynamic = js.native
 
@@ -429,7 +390,8 @@ trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound {
 
   def deviceShaken(): Unit = js.native
 
-  var keyPressed: js.Function0[Unit] = js.native
+  def keyPressed(): Unit = js.native
+//  var keyPressed: js.Function0[Unit] = js.native
 
   def keyReleased: js.Function0[Unit] = js.native
 
