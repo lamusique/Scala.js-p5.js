@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.{AtomicInteger, AtomicReference}
 
 import org.scalajs.dom
 import org.scalajs.dom.document
-import p5.js.modes.MonkeyPatchableP5
+import p5.js.modes.{MonkeyPatchableP5, PerformableP5}
 import p5.js.modules.{Color, FFT, Oscillator}
 
 import scala.scalajs.js
@@ -31,6 +31,7 @@ object GamingSampleApp {
       //        p5.setup =
       sketch.setup = ins.setupFn
       sketch.draw = ins.drawFn
+      sketch.keyPressed = ins.keyPressedFn
 
     }
 
@@ -52,7 +53,7 @@ object GamingSampleApp {
     //@JSGlobal("p5")
     //class MyP5(sketchFn: js.Function1[MyP5, Unit]) extends p5 {
 //    implicit class MyP5(sketch: p5) extends p5 {
-    case class MyP5(sketch: _root_.p5.js.p5) {
+    case class MyP5(sketch: _root_.p5.js.p5) extends PerformableP5 {
       //    => sketch: this
       import sketch._
 
@@ -62,9 +63,7 @@ object GamingSampleApp {
       def test() = println("test")
 
 
-
-      def setupFn: js.Function0[Unit] = () => setupDefined
-      def setupDefined(): Unit = {
+      override def setup(): Unit = {
         createCanvas(400, 500)
         noFill()
 
@@ -73,8 +72,7 @@ object GamingSampleApp {
         ()
       }
 
-      def drawFn: js.Function0[Unit] = () => drawDefined
-      def drawDefined(): Unit = {
+      override def draw(): Unit = {
 
         background(200)
 
@@ -83,7 +81,7 @@ object GamingSampleApp {
 
       }
 
-      def keyPressed(): Unit = {
+      override def keyPressed(): Unit = {
 
         keyCode match {
 

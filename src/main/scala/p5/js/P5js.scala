@@ -21,12 +21,12 @@ trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound wit
 
 //def setup(): Unit = js.native
 //def setup(): js.Function0[Unit] = ???
-  def setupDefined(): Unit = ???
+//  def setupDefined(): Unit = ???
 //  var setup: js.Function0[Unit] = js.native
 
 //def draw(): Unit = js.native
 //def draw(): js.Function0[Unit] = ???
-  def drawDefined(): Unit = ???
+//  def drawDefined(): Unit = ???
 //  var draw: js.Function0[Unit] = js.native
 
 
@@ -394,7 +394,7 @@ trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound wit
 
   def deviceShaken(): Unit = js.native
 
-  def keyPressed(): Unit = js.native
+//  def keyPressed(): Unit = js.native
 //  var keyPressed: js.Function0[Unit] = js.native
 
   def keyReleased: js.Function0[Unit] = js.native
