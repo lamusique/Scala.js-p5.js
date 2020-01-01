@@ -262,8 +262,8 @@ trait Environment extends js.Object {
    * @method frameRate
    * @return {Number}       current frameRate
    */
-  def frameRate(fps: Int): p5 = js.native
-  def frameRate(): Int = js.native
+  def frameRate(fps: Double): p5 = js.native
+  def frameRate(): Double = js.native
 
   /**
    * Returns the current framerate.

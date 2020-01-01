@@ -129,6 +129,7 @@ object GamingSampleApp extends Prerequisite {
         val collisions = cumulCollisions.get.size
         text("Collisions: " + collisions, appWidth - 100, 20)
         text("Score: " + (theLatestPassedID / (collisions + 1)).floor, appWidth - 100, 30)
+        text("fps: " + frameRate(), appWidth - 100, 40)
       }
 
       override def keyPressed(): Unit = {
