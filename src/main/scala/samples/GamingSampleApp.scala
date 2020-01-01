@@ -29,6 +29,10 @@ object GamingSampleApp extends Prerequisite {
 
   val simulNumOfCars = 6
 
+  // scores
+  val overtakenCars = new AtomicReference(Set.empty[Int])
+  val cumulCollisions = new AtomicReference(Set.empty[Int])
+
   case class CarGameP5(sketch: _root_.p5.js.p5) extends PerformableP5 {
       import sketch._
 
@@ -104,10 +108,32 @@ object GamingSampleApp extends Prerequisite {
           enemy.update()
         })
 
-        val collidedCars = enemyCarsRef.get.filter(_.isCollided(myCar))
-        collidedCars.foreach(_.soundCollision())
 
+        // scoring
 
+        {
+          val collidedCars = enemyCarsRef.get.filter(_.isCollided(myCar))
+          collidedCars.foreach(_.soundCollision())
+          //        val collidedIDs = collidedCars.map(_.number).toSet
+          //        val nSet = cumulCollisions.get ++ collidedIDs
+          val collidedIDs = collidedCars.map(_.number).toSet
+          val nSet = collidedIDs ++ cumulCollisions.get
+          cumulCollisions.set(nSet)
+        }
+
+        val theLatestPassedID = {
+          val curPassedCar = enemyCarsRef.get.filter(_.isPassed(myCar))
+          val curPassedIDs = curPassedCar.map(_.number).toSet
+          val nSet = curPassedIDs ++ overtakenCars.get
+          overtakenCars.set(nSet)
+          val theLatestPassedID = overtakenCars.get.max
+          theLatestPassedID
+        }
+
+        fill(color(0, 0, 0))
+        text("Passed Cars: " + theLatestPassedID, appWidth - 100, 10)
+        text("Collisions: " + cumulCollisions.get.size, appWidth - 100, 20)
+        text("Score: " + (theLatestPassedID / cumulCollisions.get.size).floor, appWidth - 100, 30)
       }
 
       override def keyPressed(): Unit = {
@@ -245,6 +271,10 @@ object GamingSampleApp extends Prerequisite {
             Some(sound)
         })
       }
+
+      def isPassed(counterCar: Car) =
+        this.pointRef.get.y + this.height < counterCar.pointRef.get.y
+
     }
 
     case class ControllableCar(
@@ -370,7 +400,7 @@ object GamingSampleApp extends Prerequisite {
     override val colour = sketch.color(hue, 80, 50)
 //    println(hue)
 
-    override val carSound = CarSound(150 * velocity / 4.0, amp = 0.03)
+    override val carSound = CarSound(150 * velocity / 4.0, amp = 0.04)
     carSound.start()
 
 
