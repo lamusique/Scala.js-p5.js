@@ -1,5 +1,7 @@
 package samples
 
+import p5.js.modes.MonkeyPatchableP5
+
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSExportTopLevel, _}
 
@@ -15,7 +17,7 @@ object InstanceModeSampleApp {
 
     // https://github.com/processing/p5.js/wiki/Global-and-instance-mode
 
-    val sketchFn: js.Function1[p5, Unit] = (sketch: p5) => {
+    val sketchFn: js.Function1[_ <: p5, Unit] = (sketch: p5 with MonkeyPatchableP5) => {
 
       import sketch._
       setup = () => {

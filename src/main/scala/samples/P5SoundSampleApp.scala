@@ -4,6 +4,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSExportTopLevel, _}
 import org.scalajs.dom
 import org.scalajs.dom.document
+import p5.js.modes.MonkeyPatchableP5
 import p5.js.modules.{FFT, Oscillator}
 
 // This import decides which mode.
@@ -18,7 +19,7 @@ object P5SoundSampleApp {
     println("Hello world p5.js!")
 
 
-    val sketchFn: js.Function1[p5, Unit] = (sketch: p5) => {
+    val sketchFn: js.Function1[_ <: p5, Unit] = (sketch: p5 with MonkeyPatchableP5) => {
 
       val carrier = Oscillator("sine")
       val modulator = Oscillator("sawtooth")
