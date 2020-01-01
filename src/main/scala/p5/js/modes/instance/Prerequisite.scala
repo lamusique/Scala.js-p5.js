@@ -20,6 +20,7 @@ trait Prerequisite {
       sketch.setup = ins.setupFn
       sketch.draw = ins.drawFn
       sketch.keyPressed = ins.keyPressedFn
+      // TODO fill in
     }
 
     // instantiate for instance mode.

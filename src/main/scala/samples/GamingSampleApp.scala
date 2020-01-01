@@ -91,10 +91,6 @@ object GamingSampleApp extends Prerequisite {
           })
           enemyCarsRef.set(nList)
         }
-//        if (enemyCarsRef.get.isEmpty) {
-//          val enemy = EnemyCar(sketch)
-//          enemyCarsRef.set(List(enemy))
-//        }
 
         val maxCars = appRand.getNaturalNumber(simulNumOfCars)
         if (enemyCarsRef.get.size < maxCars) {
@@ -114,8 +110,6 @@ object GamingSampleApp extends Prerequisite {
         {
           val collidedCars = enemyCarsRef.get.filter(_.isCollided(myCar))
           collidedCars.foreach(_.soundCollision())
-          //        val collidedIDs = collidedCars.map(_.number).toSet
-          //        val nSet = cumulCollisions.get ++ collidedIDs
           val collidedIDs = collidedCars.map(_.number).toSet
           val nSet = collidedIDs ++ cumulCollisions.get
           cumulCollisions.set(nSet)
@@ -132,8 +126,9 @@ object GamingSampleApp extends Prerequisite {
 
         fill(color(0, 0, 0))
         text("Passed Cars: " + theLatestPassedID, appWidth - 100, 10)
-        text("Collisions: " + cumulCollisions.get.size, appWidth - 100, 20)
-        text("Score: " + (theLatestPassedID / cumulCollisions.get.size).floor, appWidth - 100, 30)
+        val collisions = cumulCollisions.get.size
+        text("Collisions: " + collisions, appWidth - 100, 20)
+        text("Score: " + (theLatestPassedID / (collisions + 1)).floor, appWidth - 100, 30)
       }
 
       override def keyPressed(): Unit = {
@@ -188,8 +183,9 @@ object GamingSampleApp extends Prerequisite {
     case class Point(x: Short, y: Short)
 
     case class Random(seed: Long) {
-//      val r = new java.util.Random(seed)
-      val r = new java.util.Random()
+      // a fixed start
+      val r = new java.util.Random(seed)
+//      val r = new java.util.Random()
 
       def getNaturalNumber(limit: Int) =
         r.nextInt(limit).toShort
@@ -297,8 +293,6 @@ object GamingSampleApp extends Prerequisite {
 
       val lerpAmt = 0.1
 
-      //    val pointRef = new AtomicReference(Point(200, 400))
-      //    val targetPointRef = new AtomicReference(Point(200, 400))
 
       def move() = {
         val lerpedX = lerp(pointRef.get.x, targetPointRef.get.x, lerpAmt)
@@ -408,8 +402,6 @@ object GamingSampleApp extends Prerequisite {
 
     val lerpAmt = 0.1
 
-    //    val pointRef = new AtomicReference(Point(200, 400))
-    //    val targetPointRef = new AtomicReference(Point(200, 400))
 
     def move() = {
       val cur = pointRef.get
@@ -419,7 +411,6 @@ object GamingSampleApp extends Prerequisite {
 
     def render() = {
 
-//      colorMode(HSL)
       fill(colour)
       val p = pointRef.get
       rect(p.x, p.y, width, height)
