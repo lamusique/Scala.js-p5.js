@@ -1,6 +1,7 @@
 package p5.js.modules
 
 import org.scalajs.dom.raw.AudioParam
+import p5.js.modules.core.p5.Element
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobal, JSName}

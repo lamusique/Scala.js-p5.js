@@ -2,64 +2,66 @@ package p5.js.modules
 
 
 import p5.js.modes.instance.p5
+import _root_.p5.js.modules.core.p5.Element
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobal, JSGlobalScope, JSName}
 import scala.scalajs.js.|
 
 
-// p5.js/src/color/p5.Color.js
-@js.native
-@JSGlobal("p5.Color")
-class Color extends js.Object {
-//@JSName("p5.Color")
-//trait Color extends js.Object {
-  @JSName("_getRed")
-  def getRed(): Short = js.native
-}
-object Color {
-//  p5.js/src/color/creating_reading.js
-//  l.320
-//  p5.prototype.color = function() {
+//// p5.js/src/color/p5.Color.js
+//@js.native
+//@JSGlobal("p5.Color")
+//class Color extends js.Object {
+////@JSName("p5.Color")
+////trait Color extends js.Object {
+//  @JSName("_getRed")
+//  def getRed(): Short = js.native
+//}
+//object Color {
+////  p5.js/src/color/creating_reading.js
+////  l.320
+////  p5.prototype.color = function() {
+//
+//  // p5.Color = function(pInst, vals) {
+////  def apply(pInst: p5, vals: ): p5 = {
+////    def instantiate[C <: js.Any : js.ConstructorTag]: C =
+////      js.Dynamic.newInstance(js.constructorTag[C].constructor)(sketchFn, elm).asInstanceOf[C]
+////    val instantiatedP5 = instantiate[_root_.p5.js.modes.instance.p5]
+////    instantiatedP5
+////  }
+//}
 
-  // p5.Color = function(pInst, vals) {
-//  def apply(pInst: p5, vals: ): p5 = {
-//    def instantiate[C <: js.Any : js.ConstructorTag]: C =
-//      js.Dynamic.newInstance(js.constructorTag[C].constructor)(sketchFn, elm).asInstanceOf[C]
-//    val instantiatedP5 = instantiate[_root_.p5.js.modes.instance.p5]
-//    instantiatedP5
-//  }
-}
-
-// https://github.com/processing/p5.js/blob/master/src/dom/dom.js
-@js.native
-@JSGlobal("p5.Element")
-class Element protected () extends js.Object {
-  def this(elt: String, pInst: js.Any = "") = this()
-  var elt: js.Any = js.native
-  def parent(parent: String | js.Any): Element = js.native
-  def id(id: String): Element = js.native
-  def mousePressed(fxn: js.Function0[Any]): Element = js.native
-  def mouseWheel(fxn: js.Function0[Any]): Element = js.native
-  def mouseReleased(fxn: js.Function0[Any]): Element = js.native
-  def mouseClicked(fxn: js.Function0[Any]): Element = js.native
-  def mouseMoved(fxn: js.Function0[Any]): Element = js.native
-  def mouseOver(fxn: js.Function0[Any]): Element = js.native
-  def changed(fxn: js.Function0[Any]): Element = js.native
-  def input(fxn: js.Function0[Any]): Element = js.native
-  def mouseOut(fxn: js.Function0[Any]): Element = js.native
-  def touchStarted(fxn: js.Function0[Any]): Element = js.native
-  def touchMoved(fxn: js.Function0[Any]): Element = js.native
-  def touchEnded(fxn: js.Function0[Any]): Element = js.native
-  def dragOver(fxn: js.Function0[Any]): Element = js.native
-  def dragLeave(fxn: js.Function0[Any]): Element = js.native
-  def child(child: String | js.Any | Element = ???): Element = js.native
-  // https://p5js.org/reference/#/p5.Element/position
-  // https://www.scala-js.org/doc/interoperability/types.html
-  def position(x: js.UndefOr[Double] = js.undefined, y: js.UndefOr[Double] = js.undefined): js.Dynamic = js.native
-  def style(property: String, value: js.UndefOr[String | Double | Color] = js.undefined): String = js.native
-  def remove(): Unit = js.native
-}
+//// https://github.com/processing/p5.js/blob/master/src/dom/dom.js
+//@js.native
+//@JSGlobal("p5.Element")
+//class Element protected () extends js.Object {
+//  def this(elt: String, pInst: js.Any = "") = this()
+//  var elt: js.Any = js.native
+//  def parent(parent: String | js.Any): Element = js.native
+//  def id(id: String): Element = js.native
+//  def mousePressed(fxn: js.Function0[Any]): Element = js.native
+//  def mouseWheel(fxn: js.Function0[Any]): Element = js.native
+//  def mouseReleased(fxn: js.Function0[Any]): Element = js.native
+//  def mouseClicked(fxn: js.Function0[Any]): Element = js.native
+//  def mouseMoved(fxn: js.Function0[Any]): Element = js.native
+//  def mouseOver(fxn: js.Function0[Any]): Element = js.native
+//  def changed(fxn: js.Function0[Any]): Element = js.native
+//  def input(fxn: js.Function0[Any]): Element = js.native
+//  def mouseOut(fxn: js.Function0[Any]): Element = js.native
+//  def touchStarted(fxn: js.Function0[Any]): Element = js.native
+//  def touchMoved(fxn: js.Function0[Any]): Element = js.native
+//  def touchEnded(fxn: js.Function0[Any]): Element = js.native
+//  def dragOver(fxn: js.Function0[Any]): Element = js.native
+//  def dragLeave(fxn: js.Function0[Any]): Element = js.native
+//  def child(child: String | js.Any | Element = ???): Element = js.native
+//  // https://p5js.org/reference/#/p5.Element/position
+//  // https://www.scala-js.org/doc/interoperability/types.html
+////  def position(x: js.UndefOr[Double] = js.undefined, y: js.UndefOr[Double] = js.undefined): js.Dynamic = js.native
+//  def position(x: Int, y: Int): js.Dynamic = js.native
+//  def style(property: String, value: js.UndefOr[String | Double | Color] = js.undefined): String = js.native
+//  def remove(): Unit = js.native
+//}
 
 @js.native
 @JSGlobal("p5.Graphics")

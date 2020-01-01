@@ -1,7 +1,8 @@
 package p5.js.modules.core.p5
 
-import p5.js.modules.Color
+import p5.js.modules.color.p5.Color
 import p5.js.p5
+import _root_.p5.js.modules.dom.DomForElement
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSGlobal
@@ -13,7 +14,7 @@ import scala.scalajs.js.|
 // p5.js/src/core/p5.Element.js
 @js.native
 @JSGlobal("p5.Element")
-class Element protected () extends js.Object {
+class Element protected () extends js.Object with DomForElement {
 
   /**
    *

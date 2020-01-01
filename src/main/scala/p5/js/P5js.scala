@@ -5,14 +5,23 @@ import org.scalajs.dom.raw.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSGlobal
 import scala.scalajs.js.|
-
+import _root_.p5.js.modules.color.CreatingReading
+import _root_.p5.js.modules.color.Setting
+import _root_.p5.js.modules.color.p5.Color
+import _root_.p5.js.modules.core.p5.Element
 
 @js.native
-trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound with p5.js.modules.core.Constants with p5.js.modules.core.Environment {
+trait p5 extends js.Object
+  with p5.js.modules.Shape
+  with p5.js.modules.Sound
+  with p5.js.modules.core.Constants
+  with p5.js.modules.core.Environment
+  with p5 .js.modules.dom.DomForP5
+  with p5.js.modules.color.CreatingReading
+  with p5 .js.modules.color.Setting {
 
   import _root_.p5.js.modules._
-  type Color = _root_.p5.js.modules.Color
-  type Element = _root_.p5.js.modules.Element
+//  type Element = _root_.p5.js.modules.core.p5.Element
 
 //  type Sound = _root_.p5.js.modules.Sound
   type Oscillator = p5.js.modules.Oscillator
@@ -126,7 +135,7 @@ trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound wit
            ): p5 = js.native
 
   def ambientLight(
-                    v1: Double | js.Array[js.Any] | String | modules.Color,
+                    v1: Double | js.Array[js.Any] | String | Color,
                     v2: Double = 1.0,
                     v3: Double = 1.0,
                     a: Double = 1.0
@@ -137,21 +146,21 @@ trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound wit
   def texture(): p5 = js.native
 
   def basicMaterial(
-                     v1: Double | js.Array[js.Any] | String | modules.Color,
+                     v1: Double | js.Array[js.Any] | String | Color,
                      v2: Double = 1.0,
                      v3: Double = 1.0,
                      a: Double = 1.0
                    ): p5 = js.native
 
   def ambientMaterial(
-                       v1: Double | js.Array[js.Any] | String | modules.Color,
+                       v1: Double | js.Array[js.Any] | String | Color,
                        v2: Double = 1.0,
                        v3: Double = 1.0,
                        a: Double = 1.0
                      ): p5 = js.native
 
   def specularMaterial(
-                        v1: Double | js.Array[js.Any] | String | modules.Color,
+                        v1: Double | js.Array[js.Any] | String | Color,
                         v2: Double = 1.0,
                         v3: Double = 1.0,
                         a: Double = 1.0
@@ -163,12 +172,12 @@ trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound wit
 
   def brightness(color: js.Any): Unit = js.native
 
-  def color(
-             v1: Double | String,
-             v2: Double = 1.0,
-             v3: Double = 1.0,
-             alpha: Double = 1.0
-           ): this.Color = js.native
+//  def color(
+//             v1: Double | String,
+//             v2: Double = 1.0,
+//             v3: Double = 1.0,
+//             alpha: Double = 1.0
+//           ): this.Color = js.native
 
   def green(color: js.Any): Unit = js.native
 
@@ -181,7 +190,7 @@ trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound wit
   def saturation(color: js.Any): Unit = js.native
 
   def background(
-                  v1: Double | String | modules.Color | modules.Image,
+                  v1: Double | String | Color | modules.Image,
                   v2: Double = 1.0,
                   v3: Double = 1.0,
                   a: Double = 1.0
@@ -189,19 +198,19 @@ trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound wit
 
   def clear(): Unit = js.native
 
-  def fill(
-            v1: Double | js.Array[js.Any] | String | modules.Color,
-            v2: Double = 1.0,
-            v3: Double = 1.0,
-            a: Double = 1.0
-          ): Unit = js.native
+//  def fill(
+//            v1: Double | js.Array[js.Any] | String | Color,
+//            v2: Double = 1.0,
+//            v3: Double = 1.0,
+//            a: Double = 1.0
+//          ): Unit = js.native
 
   def noFill(): Unit = js.native
 
   def noStroke(): Unit = js.native
 
   def stroke(
-              v1: Double | js.Array[js.Any] | String | modules.Color,
+              v1: Double | js.Array[js.Any] | String | Color,
               v2: Double = 1.0,
               v3: Double = 1.0,
               a: Double = 1.0
@@ -422,20 +431,20 @@ trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound wit
   def touchEnded(): Unit = js.native
 
   // These functions are generative so missing in p5.js source.
-  def createDiv(html: js.UndefOr[String] = js.undefined): modules.Element = js.native
-  def createP(html: js.UndefOr[String] = js.undefined): modules.Element = js.native
-  def createSpan(html: js.UndefOr[String] = js.undefined): modules.Element = js.native
+  def createDiv(html: js.UndefOr[String] = js.undefined): Element = js.native
+  def createP(html: js.UndefOr[String] = js.undefined): Element = js.native
+  def createSpan(html: js.UndefOr[String] = js.undefined): Element = js.native
 
   def createImage(width: Double, height: Double): modules.Image = js.native
 
-  def createA(href: String, html: String, target: js.UndefOr[String] = js.undefined): modules.Element = js.native
+  def createA(href: String, html: String, target: js.UndefOr[String] = js.undefined): Element = js.native
 
-  def createSlider(min: Double, max: Double, value: js.UndefOr[Double] = js.undefined, step: js.UndefOr[Double] = js.undefined): modules.Element = js.native
-  def createButton(label: String, value: js.UndefOr[String] = js.undefined): modules.Element = js.native
-  def createCheckbox(label: js.UndefOr[String] = js.undefined, value: js.UndefOr[String] = js.undefined): modules.Element = js.native
-  def createSelect(multiple: js.UndefOr[Boolean]): modules.Element = js.native
+  def createSlider(min: Double, max: Double, value: js.UndefOr[Double] = js.undefined, step: js.UndefOr[Double] = js.undefined): Element = js.native
+  def createButton(label: String, value: js.UndefOr[String] = js.undefined): Element = js.native
+  def createCheckbox(label: js.UndefOr[String] = js.undefined, value: js.UndefOr[String] = js.undefined): Element = js.native
+  def createSelect(multiple: js.UndefOr[Boolean]): Element = js.native
   // TODO can be a typed element
-  def createSelect(existing: js.Object): modules.Element = js.native
+  def createSelect(existing: js.Object): Element = js.native
 
 
   def saveFrames(
@@ -724,7 +733,7 @@ trait p5 extends js.Object with p5.js.modules.Shape with p5.js.modules.Sound wit
 
   // https://github.com/processing/p5.js/blob/master/src/dom/dom.js
 
-  def select(name: String, container: String | Element | HTMLElement): js.Array[js.Any] = js.native
+//  def select(name: String, container: String | Element | HTMLElement): js.Array[js.Any] = js.native
   def selectAll(name: String, container: js.UndefOr[String] = js.undefined): js.Array[js.Any] = js.native
   def removeElements(): Unit = js.native
   // https://p5js.org/reference/#/p5/changed

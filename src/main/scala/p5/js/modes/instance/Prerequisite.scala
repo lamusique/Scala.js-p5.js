@@ -4,12 +4,15 @@ import scala.scalajs.js
 import _root_.p5.js.modes.PerformableP5
 import _root_.p5.js.modes.MonkeyPatchableP5
 
+import scala.scalajs.js.annotation.{JSExport, JSName}
+
+
 trait Prerequisite {
 
   def instance(sketch: MonkeyPatchableP5): PerformableP5
 
-//  def run(): Unit = {
-def main(args: Array[String]): Unit = {
+  @JSExport
+  def run(): Unit = {
     println("The main starts.")
 
     val sketchFn: js.Function1[_ <: _root_.p5.js.p5, Unit] = (sketch: MonkeyPatchableP5) => {
