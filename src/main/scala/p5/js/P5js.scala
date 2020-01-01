@@ -18,7 +18,8 @@ trait p5 extends js.Object
   with p5.js.modules.core.Environment
   with p5 .js.modules.dom.DomForP5
   with p5.js.modules.color.CreatingReading
-  with p5 .js.modules.color.Setting {
+  with p5 .js.modules.color.Setting
+  with p5 .js.modules.typography.LoadingDisplaying {
 
   import _root_.p5.js.modules._
 //  type Element = _root_.p5.js.modules.core.p5.Element
@@ -630,13 +631,13 @@ trait p5 extends js.Object
 
   def textWidth(theText: String): Double = js.native
 
-  def text(
-            str: String,
-            x: Double,
-            y: Double,
-            x2: Double,
-            y2: Double
-          ): js.Dynamic = js.native
+//  def text(
+//            str: String,
+//            x: Double,
+//            y: Double,
+//            x2: Double,
+//            y2: Double
+//          ): js.Dynamic = js.native
 
   def textFont(f: js.Any | String): js.Dynamic = js.native
 

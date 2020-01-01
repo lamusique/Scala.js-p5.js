@@ -3,6 +3,7 @@ package p5.js.modules
 
 import p5.js.modes.instance.p5
 import _root_.p5.js.modules.core.p5.Element
+import org.scalajs.dom.raw.AudioParam
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobal, JSGlobalScope, JSName}
@@ -301,6 +302,11 @@ class Env extends js.Object {
 class Pulse protected () extends js.Object {
   def this(freq: Double = 1.0, w: Double = 1.0) = this()
   def width(width: Double = 1.0): Unit = js.native
+
+  def amp(vol: Double, time: Double = 1.0): Unit = js.native
+  def freq(frequency: Double | Signal | Oscillator, rampTime: js.UndefOr[Double] = js.undefined, timeFromNow: js.UndefOr[Double] = js.undefined): AudioParam = js.native
+  def start(): Unit = js.native
+  def stop(): Unit = js.native
 }
 
 @js.native
@@ -313,6 +319,10 @@ class Noise protected () extends js.Object {
   def pan(panning: Double, timeFromNow: Double): Unit = js.native
   def connect(unit: js.Any): Unit = js.native
   def disconnect(): Unit = js.native
+
+  def amp(vol: Double, time: Double = 1.0): Unit = js.native
+//  def freq(frequency: Double | Signal | Oscillator, rampTime: js.UndefOr[Double] = js.undefined, timeFromNow: js.UndefOr[Double] = js.undefined): AudioParam = js.native
+
 }
 
 @js.native

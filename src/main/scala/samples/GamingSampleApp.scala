@@ -1,6 +1,6 @@
 package samples
 
-import java.util.concurrent.atomic.{AtomicInteger, AtomicReference}
+import java.util.concurrent.atomic.{AtomicBoolean, AtomicInteger, AtomicReference}
 
 import org.scalajs.dom
 import org.scalajs.dom.document
@@ -61,17 +61,18 @@ object GamingSampleApp extends Prerequisite {
 
         enemyCarsRef.set((1 to 10).map(i => EnemyCar(sketch)).toList)
 
+
+
         ()
       }
 
       override def draw(): Unit = {
 
-        background(200)
+        background(0, 4, 70)
 
-        myCar.move()
-        myCar.render()
 
-        myCar.sound.pitchUp()
+        myCar.update()
+
 
 
         // update
@@ -100,10 +101,11 @@ object GamingSampleApp extends Prerequisite {
         }
 
         enemyCarsRef.get.foreach(enemy => {
-          enemy.move()
-          enemy.render()
-          enemy.sound.pitchUp()
+          enemy.update()
         })
+
+        val collidedCars = enemyCarsRef.get.filter(_.isCollided(myCar))
+        collidedCars.foreach(_.soundCollision())
 
 
       }
@@ -176,30 +178,89 @@ object GamingSampleApp extends Prerequisite {
 
     trait Car {
       val sketch: _root_.p5.js.p5
-      val width: Int
-      val height: Int
+      val width: Short
+      val height: Short
       val colour: Color
       val pointRef: AtomicReference[Point]
       val velocity: Double
+      val carSound: CarSound
+      val collisionSoundRef: AtomicReference[Option[CollisionSound]]
+
+      def update(): Unit = {
+        move()
+        carSound.pitchUp()
+        renderSoundCollision()
+        render()
+      }
 
       def move(): Unit
 
       def render(): Unit
+
+      def isCollided(counterCar: Car): Boolean = {
+
+        val curP = pointRef.get
+        val counterP = counterCar.pointRef.get()
+
+        // vertical area
+
+//        Option.when(curP.y < counterP.y)()
+//        (curP.y + this.height) > counterP.y
+
+
+        // horizontal area
+
+//        Option.when(curP.x < counterP.x)()
+//        (curP.x + this.width) > counterP.x
+
+
+        val checks = List(
+          () => {curP.y < counterP.y + counterCar.height},
+          () => {(curP.y + this.height) > counterP.y},
+          () => {curP.x < counterP.x + counterCar.width},
+          () => {(curP.x + this.width) > counterP.x }
+        )
+
+        val res = checks.forall(_.apply())
+        res
+      }
+
+      def soundCollision() = {
+        val sound = collisionSoundRef.get match {
+          case None =>
+            val sound = CollisionSound()
+            sound.start
+            sound
+          case Some(sound) => sound
+        }
+        collisionSoundRef.set(Some(sound))
+      }
+      def renderSoundCollision() = {
+        collisionSoundRef.get.flatMap(sound => {
+          if (sound.shouldDie) {
+            sound.stop
+            None
+          } else
+            sound.pitchDown
+            Some(sound)
+        })
+      }
     }
 
     case class ControllableCar(
                                 sketch: _root_.p5.js.p5,
-                                override val width: Int = 10,
-                                override val height: Int = 30,
+                                override val width: Short = 10,
+                                override val height: Short = 30,
                                 override val pointRef: AtomicReference[Point] = new AtomicReference(Point(200, 400)),
                                 override val velocity: Double = 30,
+                                override val collisionSoundRef: AtomicReference[Option[CollisionSound]] = new AtomicReference(None),
                                 targetPointRef: AtomicReference[Point] = new AtomicReference(Point(200, 400))
                               ) extends Car {
 
       override val colour = sketch.color(200, 100, 100)
 
-      val sound = CarSound(90)
-      sound.start()
+      override val carSound = CarSound(90)
+      carSound.start()
 
 
       import sketch._
@@ -223,7 +284,36 @@ object GamingSampleApp extends Prerequisite {
       }
     }
 
-  case class CarSound(hz: Double = 90, amp: Double = 0.5) {
+  case class CollisionSound() {
+
+    val freq = new AtomicReference(440.0)
+    val counter = new AtomicInteger(0)
+    val maxNumOfChanges = 50
+    val lowLimitHz = 10
+
+    val osc = new _root_.p5.js.modules.Pulse()
+    osc.amp(0.8)
+    osc.freq(2200)
+    osc.width(0.6)
+
+    val downRate = 0.7
+
+    def pitchDown = {
+      val calcedHz = freq.get() * downRate
+      val nHz = if (calcedHz < lowLimitHz) lowLimitHz else calcedHz
+      osc.freq(nHz)
+      freq.set(nHz)
+      counter.incrementAndGet()
+    }
+
+    def shouldDie = counter.get > maxNumOfChanges
+
+    def start = osc.start()
+    def stop = osc.stop()
+
+  }
+
+  case class CarSound(hz: Double = 90, amp: Double = 0.1) {
 
     val diffRate = 1.1
     val limitHz = 600.0
@@ -266,11 +356,12 @@ object GamingSampleApp extends Prerequisite {
   val enemyCounter = new AtomicInteger()
   case class EnemyCar(
                               sketch: _root_.p5.js.p5,
-                              override val width: Int = 10,
-                              override val height: Int = 30,
+                              override val width: Short = 10,
+                              override val height: Short = 30,
                               override val pointRef: AtomicReference[Point] = new AtomicReference(Point(appRand.getNaturalNumber(appWidth), 0)),
 //                              override val velocity: Double = 4,
                               override val velocity: Double = appRand.getDecimal(3, 20),
+                              override val collisionSoundRef: AtomicReference[Option[CollisionSound]] = new AtomicReference(None),
                               hue: Short = appRand.getNaturalNumber(360)
                             ) extends Car {
 
@@ -279,8 +370,8 @@ object GamingSampleApp extends Prerequisite {
     override val colour = sketch.color(hue, 80, 50)
 //    println(hue)
 
-    val sound = CarSound(150 * velocity / 4.0)
-    sound.start()
+    override val carSound = CarSound(150 * velocity / 4.0, amp = 0.03)
+    carSound.start()
 
 
     import sketch._
@@ -302,11 +393,12 @@ object GamingSampleApp extends Prerequisite {
       fill(colour)
       val p = pointRef.get
       rect(p.x, p.y, width, height)
-//      text(number, p.x, p.y)
+      text(number, p.x, p.y)
     }
 
     def destroy(): Unit = {
-      sound.stop()
+      carSound.stop()
+      collisionSoundRef.get().foreach(_.stop)
     }
 
   }
