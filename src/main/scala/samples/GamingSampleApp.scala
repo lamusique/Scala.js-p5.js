@@ -21,7 +21,13 @@ object GamingSampleApp extends Prerequisite {
 
   override def instance(sketch: MonkeyPatchableP5): PerformableP5 = CarGameP5(sketch)
 
-  val enemyCars = new AtomicReference[List[EnemyCar]]()
+  val enemyCarsRef = new AtomicReference(List.empty[EnemyCar])
+  val appRand = Random(1000)
+
+  val appWidth = 400.toShort
+  val appHeight = 500.toShort
+
+  val simulNumOfCars = 6
 
   case class CarGameP5(sketch: _root_.p5.js.p5) extends PerformableP5 {
       import sketch._
@@ -29,11 +35,12 @@ object GamingSampleApp extends Prerequisite {
       val myCar = ControllableCar(sketch)
 
       override def setup(): Unit = {
-        createCanvas(400, 500)
+        createCanvas(appWidth, appHeight)
         noFill()
 
         println("setup works.")
 
+        colorMode(HSL)
 
         // Start the audio context on a click/touch event
 
@@ -52,6 +59,8 @@ object GamingSampleApp extends Prerequisite {
           onFulfilled)
 
 
+        enemyCarsRef.set((1 to 10).map(i => EnemyCar(sketch)).toList)
+
         ()
       }
 
@@ -65,9 +74,36 @@ object GamingSampleApp extends Prerequisite {
         myCar.sound.pitchUp()
 
 
-        if (enemyCars.get.isEmpty) {
-          val enemy = EnemyCar()
+        // update
+        {
+          val nList = enemyCarsRef.get.flatMap(enemy => {
+            if (enemy.pointRef.get().y > appHeight) {
+              enemy.destroy()
+              None
+            } else {
+              Some(enemy)
+            }
+          })
+          enemyCarsRef.set(nList)
         }
+//        if (enemyCarsRef.get.isEmpty) {
+//          val enemy = EnemyCar(sketch)
+//          enemyCarsRef.set(List(enemy))
+//        }
+
+        val maxCars = appRand.getNaturalNumber(simulNumOfCars)
+        if (enemyCarsRef.get.size < maxCars) {
+          val shortage = maxCars - enemyCarsRef.get.size
+          val nCars = (1 to shortage).map(i => EnemyCar(sketch)).toList
+          val nList = enemyCarsRef.get ::: nCars
+          enemyCarsRef.set(nList)
+        }
+
+        enemyCarsRef.get.foreach(enemy => {
+          enemy.move()
+          enemy.render()
+          enemy.sound.pitchUp()
+        })
 
 
       }
@@ -83,7 +119,7 @@ object GamingSampleApp extends Prerequisite {
             // L
             val curX = myCar.pointRef.get.x
             val nX = curX + myCar.velocity
-            val nTargetP = Point(nX, myCar.targetPointRef.get.y)
+            val nTargetP = Point(nX.toShort, myCar.targetPointRef.get.y)
             myCar.targetPointRef.set(nTargetP)
 
           // case 37 =>
@@ -93,7 +129,7 @@ object GamingSampleApp extends Prerequisite {
             // J
             val curX = myCar.pointRef.get.x
             val nX = curX - myCar.velocity
-            val nTargetP = Point(nX, myCar.targetPointRef.get.y)
+            val nTargetP = Point(nX.toShort, myCar.targetPointRef.get.y)
             myCar.targetPointRef.set(nTargetP)
 
           // up arrow
@@ -120,7 +156,23 @@ object GamingSampleApp extends Prerequisite {
     }
 
 
-    case class Point(x: Int, y: Int)
+  // pointless to use Short on JavaScript but this is an experiment
+    case class Point(x: Short, y: Short)
+
+    case class Random(seed: Long) {
+//      val r = new java.util.Random(seed)
+      val r = new java.util.Random()
+
+      def getNaturalNumber(limit: Int) =
+        r.nextInt(limit).toShort
+
+      def getDecimal(lowLimit: Double, highLimit: Double) = {
+        val d = r.nextDouble()
+        val range = highLimit - lowLimit
+        d * range + lowLimit
+      }
+
+    }
 
     trait Car {
       val sketch: _root_.p5.js.p5
@@ -128,6 +180,7 @@ object GamingSampleApp extends Prerequisite {
       val height: Int
       val colour: Color
       val pointRef: AtomicReference[Point]
+      val velocity: Double
 
       def move(): Unit
 
@@ -138,9 +191,8 @@ object GamingSampleApp extends Prerequisite {
                                 sketch: _root_.p5.js.p5,
                                 override val width: Int = 10,
                                 override val height: Int = 30,
-                                //                              override val colour: Color = Color(200, 100, 100)
-//                                override val colour: Color = sketch.color(1,1,1),
                                 override val pointRef: AtomicReference[Point] = new AtomicReference(Point(200, 400)),
+                                override val velocity: Double = 30,
                                 targetPointRef: AtomicReference[Point] = new AtomicReference(Point(200, 400))
                               ) extends Car {
 
@@ -152,9 +204,6 @@ object GamingSampleApp extends Prerequisite {
 
       import sketch._
 
-      //    val width = 10
-      //    val height = 30
-      val velocity = 30
       val lerpAmt = 0.1
 
       //    val pointRef = new AtomicReference(Point(200, 400))
@@ -162,7 +211,7 @@ object GamingSampleApp extends Prerequisite {
 
       def move() = {
         val lerpedX = lerp(pointRef.get.x, targetPointRef.get.x, lerpAmt)
-        val nP = Point(lerpedX.toInt, pointRef.get.y)
+        val nP = Point(lerpedX.toShort, pointRef.get.y)
         pointRef.set(nP)
       }
 
@@ -206,10 +255,59 @@ object GamingSampleApp extends Prerequisite {
       osc1.start()
       osc2.start()
     }
-
+    def stop() = {
+      osc1.stop(0)
+      osc1.disconnect()
+      osc2.stop(0)
+      osc2.disconnect()
+    }
   }
 
-  case class EnemyCar(){
+  val enemyCounter = new AtomicInteger()
+  case class EnemyCar(
+                              sketch: _root_.p5.js.p5,
+                              override val width: Int = 10,
+                              override val height: Int = 30,
+                              override val pointRef: AtomicReference[Point] = new AtomicReference(Point(appRand.getNaturalNumber(appWidth), 0)),
+//                              override val velocity: Double = 4,
+                              override val velocity: Double = appRand.getDecimal(3, 20),
+                              hue: Short = appRand.getNaturalNumber(360)
+                            ) extends Car {
+
+    val number = enemyCounter.incrementAndGet()
+
+    override val colour = sketch.color(hue, 80, 50)
+//    println(hue)
+
+    val sound = CarSound(150 * velocity / 4.0)
+    sound.start()
+
+
+    import sketch._
+
+    val lerpAmt = 0.1
+
+    //    val pointRef = new AtomicReference(Point(200, 400))
+    //    val targetPointRef = new AtomicReference(Point(200, 400))
+
+    def move() = {
+      val cur = pointRef.get
+      val nP = Point(cur.x, (cur.y + velocity).toShort)
+      pointRef.set(nP)
+    }
+
+    def render() = {
+
+//      colorMode(HSL)
+      fill(colour)
+      val p = pointRef.get
+      rect(p.x, p.y, width, height)
+//      text(number, p.x, p.y)
+    }
+
+    def destroy(): Unit = {
+      sound.stop()
+    }
 
   }
 
